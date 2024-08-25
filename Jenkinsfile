@@ -15,7 +15,13 @@ pipeline {
     }
   }
  }
-
+stage('Test Shell Command') {
+      steps {
+        script {
+          sh 'echo "Shell script is working"'
+        }
+      }
+    }
     stage('Checkout') {
       steps {
         git branch: 'trial', url: 'https://github.com/ridha0595/terraform-jenkins.git'
