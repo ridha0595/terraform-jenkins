@@ -1,14 +1,27 @@
 pipeline {
   agent any
   tools {
-    terraform 'terraform'  // This should match the name used in Jenkins Global Tool Configuration
+    terraform 'terraform'  // Use the name you provided in Global Tool Configuration
+  }
+  environment {
+    PATH = "/opt/homebrew/opt/azure-cli:${env.PATH}"
   }
   stages {
+    
+    stage('Verify PATH') {
+  steps {
+    script {
+      sh 'echo $PATH'
+    }
+  }
+ }
+
     stage('Checkout') {
       steps {
         git branch: 'trial', url: 'https://github.com/ridha0595/terraform-jenkins.git'
       }
     }
+    
     stage('Terraform Init') {
       steps {
         script {
