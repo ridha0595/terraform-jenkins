@@ -3,22 +3,19 @@ pipeline {
   tools {
     terraform 'terraform'  // Use the name you provided in Global Tool Configuration
   }
-  
+    environment {
+    PATH = "/opt/homebrew/opt/azure-cli/bin:${env.PATH}"
+  }
   stages {
-    
-    
     stage('Checkout') {
       steps {
         git branch: 'trial', url: 'https://github.com/ridha0595/terraform-jenkins.git'
       }
     }
-    
-        stage('Terraform Init') {
+    stage('Terraform Init') {
       steps {
         script {
-          withEnv(["PATH+AZURE=/opt/homebrew/opt/azure-cli/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin"]) {
-            sh 'terraform init'
-          }
+          sh 'terraform init'
         }
       }
     }
